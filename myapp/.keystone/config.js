@@ -38,6 +38,9 @@ var Client = (0, import_core.list)({
         displayMode: "textarea"
       }
     }),
+    photo: (0, import_fields.image)({
+      storage: "localstorage"
+    }),
     status: (0, import_fields.select)({
       options: [
         { label: "Current", value: "CURRENT" },
@@ -66,6 +69,7 @@ var Content = (0, import_core2.list)({
         { label: "about us", value: "AboutUs" }
       ]
     }),
+    image: (0, import_fields2.image)({ storage: "localstorage" }),
     type: (0, import_fields2.select)({
       options: [
         { label: "Cards", value: "Cards" },
@@ -245,6 +249,25 @@ var session = (0, import_session.statelessSessions)({
 });
 
 // keystone.ts
+var baseUrl = "http://localhost:3000";
+var localstorage = {
+  kind: "local",
+  type: "image",
+  generateUrl: (path) => `${baseUrl}/images${path}`,
+  serverRoute: {
+    path: "/images"
+  },
+  storagePath: "public/images"
+};
+var filestorage = {
+  kind: "local",
+  type: "file",
+  generateUrl: (path) => `${baseUrl}/files${path}`,
+  serverRoute: {
+    path: "/files"
+  },
+  storagePath: "public/files"
+};
 var keystone_default = withAuth(
   (0, import_core8.config)({
     db: {
@@ -260,6 +283,7 @@ var keystone_default = withAuth(
       JobApplication,
       User
     },
+    storage: { localstorage, filestorage },
     session
   })
 );

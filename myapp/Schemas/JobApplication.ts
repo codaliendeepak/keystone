@@ -13,7 +13,7 @@ export const JobApplication = list({
           displayMode: 'textarea',
         },
       }),                                                                                                        
-      // CV: file({storage:''})                                                                  //file
+     // CV: file({storage:'localstorage'})                                                                  //file
       
     //   user: relationship({                                                   TODO--RELATIONSHIP WITH CLIENTS
     //     ref: 'User.products',

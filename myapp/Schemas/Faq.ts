@@ -6,7 +6,7 @@ export const Faq = list({
     access: allowAll,
     fields: {
       Question: text({ validation: { isRequired: true } }),                                  //  njob role
-      ans: text({                                          //-- inside of details ask for seperate model of req and res
+      ans: text({                                                 //-- inside of details ask for seperate model of req and res
         ui: {
           displayMode: 'textarea',
         },

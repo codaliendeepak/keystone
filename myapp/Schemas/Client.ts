@@ -11,9 +11,9 @@ export const Client = list({
           displayMode: 'textarea',
         },
       }),
-      // photo: image({                                                     //IMAGE OF CLIENT COMPANy
-      //   storage:""
-      // }),
+      photo: image({                                                     //IMAGE OF CLIENT COMPANy
+        storage:'localstorage'
+      }),
       status: select({
         options: [
           { label: 'Current', value: 'CURRENT' },

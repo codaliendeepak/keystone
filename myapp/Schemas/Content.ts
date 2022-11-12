@@ -9,7 +9,7 @@ export const Content = list({
         { label: "about us", value:"AboutUs"  }
       ]
       }), 
-      // image:image({storage:""}),                                                                       
+      image:image({storage:'localstorage'}),                                                                       
       type:select({                                                                 //  Query-Type
         options: [
           { label: 'Cards', value: 'Cards' },
