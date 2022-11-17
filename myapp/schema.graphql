@@ -273,6 +273,7 @@ type FormQuery {
   email: String
   packagesCount: String
   subject: String
+  phone: Int
 }
 
 input FormQueryWhereUniqueInput {
@@ -292,6 +293,7 @@ input FormQueryWhereInput {
   email: StringFilter
   packagesCount: StringFilter
   subject: StringFilter
+  phone: IntFilter
 }
 
 input FormQueryOrderByInput {
@@ -303,6 +305,7 @@ input FormQueryOrderByInput {
   email: OrderDirection
   packagesCount: OrderDirection
   subject: OrderDirection
+  phone: OrderDirection
 }
 
 input FormQueryUpdateInput {
@@ -313,6 +316,7 @@ input FormQueryUpdateInput {
   email: String
   packagesCount: String
   subject: String
+  phone: Int
 }
 
 input FormQueryUpdateArgs {
@@ -328,11 +332,12 @@ input FormQueryCreateInput {
   email: String
   packagesCount: String
   subject: String
+  phone: Int
 }
 
 type JobRole {
   id: ID!
-  jobrole: String
+  Role: String
   employmenttype: String
   jobType: String
   jobResponsilbilties: String
@@ -349,7 +354,7 @@ input JobRoleWhereInput {
   OR: [JobRoleWhereInput!]
   NOT: [JobRoleWhereInput!]
   id: IDFilter
-  jobrole: StringFilter
+  Role: StringFilter
   employmenttype: StringNullableFilter
   jobType: StringNullableFilter
   jobResponsilbilties: StringFilter
@@ -359,7 +364,7 @@ input JobRoleWhereInput {
 
 input JobRoleOrderByInput {
   id: OrderDirection
-  jobrole: OrderDirection
+  Role: OrderDirection
   employmenttype: OrderDirection
   jobType: OrderDirection
   jobResponsilbilties: OrderDirection
@@ -368,7 +373,7 @@ input JobRoleOrderByInput {
 }
 
 input JobRoleUpdateInput {
-  jobrole: String
+  Role: String
   employmenttype: String
   jobType: String
   jobResponsilbilties: String
@@ -382,7 +387,7 @@ input JobRoleUpdateArgs {
 }
 
 input JobRoleCreateInput {
-  jobrole: String
+  Role: String
   employmenttype: String
   jobType: String
   jobResponsilbilties: String
@@ -396,6 +401,13 @@ type JobApplication {
   email: String
   jobRole: String
   coverLetter: String
+  CV: FileFieldOutput
+}
+
+type FileFieldOutput {
+  filename: String!
+  filesize: Int!
+  url: String!
 }
 
 input JobApplicationWhereUniqueInput {
@@ -426,6 +438,11 @@ input JobApplicationUpdateInput {
   email: String
   jobRole: String
   coverLetter: String
+  CV: FileFieldInput
+}
+
+input FileFieldInput {
+  upload: Upload!
 }
 
 input JobApplicationUpdateArgs {
@@ -438,6 +455,7 @@ input JobApplicationCreateInput {
   email: String
   jobRole: String
   coverLetter: String
+  CV: FileFieldInput
 }
 
 type User {
@@ -446,6 +464,7 @@ type User {
   email: String
   password: PasswordState
   createdAt: DateTime
+  isAdmin: Boolean
 }
 
 type PasswordState {
@@ -468,6 +487,7 @@ input UserWhereInput {
   email: StringFilter
   password: PasswordFilter
   createdAt: DateTimeNullableFilter
+  isAdmin: BooleanFilter
 }
 
 input PasswordFilter {
@@ -485,11 +505,17 @@ input DateTimeNullableFilter {
   not: DateTimeNullableFilter
 }
 
+input BooleanFilter {
+  equals: Boolean
+  not: BooleanFilter
+}
+
 input UserOrderByInput {
   id: OrderDirection
   name: OrderDirection
   email: OrderDirection
   createdAt: OrderDirection
+  isAdmin: OrderDirection
 }
 
 input UserUpdateInput {
@@ -497,6 +523,7 @@ input UserUpdateInput {
   email: String
   password: String
   createdAt: DateTime
+  isAdmin: Boolean
 }
 
 input UserUpdateArgs {
@@ -509,6 +536,7 @@ input UserCreateInput {
   email: String
   password: String
   createdAt: DateTime
+  isAdmin: Boolean
 }
 
 """
@@ -579,6 +607,7 @@ input CreateInitialUserInput {
   name: String
   email: String
   password: String
+  isAdmin: Boolean
 }
 
 type Query {

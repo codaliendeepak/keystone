@@ -66,7 +66,8 @@ var Content = (0, import_core2.list)({
   fields: {
     pagename: (0, import_fields2.select)({
       options: [
-        { label: "about us", value: "AboutUs" }
+        { label: "about us", value: "AboutUs" },
+        { label: "Buisness", value: "Buisness" }
       ]
     }),
     image: (0, import_fields2.image)({ storage: "localstorage" }),
@@ -131,7 +132,8 @@ var JobApplication = (0, import_core4.list)({
       ui: {
         displayMode: "textarea"
       }
-    })
+    }),
+    CV: (0, import_fields4.file)({ storage: "filestorage" })
   }
 });
 
@@ -142,7 +144,7 @@ var import_access5 = require("@keystone-6/core/access");
 var JobRole = (0, import_core5.list)({
   access: import_access5.allowAll,
   fields: {
-    jobrole: (0, import_fields5.text)({ validation: { isRequired: true } }),
+    Role: (0, import_fields5.text)({ validation: { isRequired: true } }),
     employmenttype: (0, import_fields5.select)({
       options: [
         { label: "Full Time Employee (FTE)", value: "Full Time Employee (FTE)" },
@@ -150,20 +152,18 @@ var JobRole = (0, import_core5.list)({
       ],
       defaultValue: "Full Time Employee (FTE)",
       ui: {
-        displayMode: "segmented-control",
-        createView: { fieldMode: "hidden" }
+        displayMode: "segmented-control"
       }
     }),
     jobType: (0, import_fields5.select)({
       options: [
-        { label: "Product", value: "PRODUCT" },
-        { label: "Commercial", value: "COMMERCIAL" },
-        { label: "Marketing", value: "MARKETING" }
+        { label: "Product", value: "Product" },
+        { label: "Commercial", value: "Commercial" },
+        { label: "Marketing", value: "Marketing" }
       ],
-      defaultValue: "PRODUCT",
+      defaultValue: "Product",
       ui: {
-        displayMode: "select",
-        createView: { fieldMode: "hidden" }
+        displayMode: "select"
       }
     }),
     jobResponsilbilties: (0, import_fields5.text)({
@@ -191,12 +191,12 @@ var FormQuery = (0, import_core6.list)({
     type: (0, import_fields6.select)({
       options: [
         { label: "Buisness", value: "Buisness" },
+        { label: "General", value: "General" },
         { label: "other", value: "other" }
       ],
-      defaultValue: "CURRENT",
+      defaultValue: "Buisness",
       ui: {
-        displayMode: "segmented-control",
-        createView: { fieldMode: "hidden" }
+        displayMode: "select"
       }
     }),
     description: (0, import_fields6.text)({
@@ -204,10 +204,11 @@ var FormQuery = (0, import_core6.list)({
         displayMode: "textarea"
       }
     }),
-    buisnessCategory: (0, import_fields6.text)({}),
+    buisnessCategory: (0, import_fields6.text)({ defaultValue: "" }),
     email: (0, import_fields6.text)({ validation: { isRequired: true }, isIndexed: "unique" }),
-    packagesCount: (0, import_fields6.text)({}),
-    subject: (0, import_fields6.text)({})
+    packagesCount: (0, import_fields6.text)({ defaultValue: "" }),
+    subject: (0, import_fields6.text)({}),
+    phone: (0, import_fields6.integer)({ validation: { isRequired: true }, defaultValue: 0 })
   }
 });
 
@@ -215,13 +216,26 @@ var FormQuery = (0, import_core6.list)({
 var import_core7 = require("@keystone-6/core");
 var import_access7 = require("@keystone-6/core/access");
 var import_fields7 = require("@keystone-6/core/fields");
+
+// access.ts
+var isAdmin = ({ session: session2 }) => session2?.data.isAdmin;
+
+// Schemas/User.ts
 var User = (0, import_core7.list)({
-  access: import_access7.allowAll,
+  access: {
+    operation: {
+      query: import_access7.allowAll,
+      create: isAdmin,
+      update: isAdmin,
+      delete: isAdmin
+    }
+  },
   fields: {
     name: (0, import_fields7.text)({ validation: { isRequired: true } }),
     email: (0, import_fields7.text)({ isIndexed: "unique", validation: { isRequired: true } }),
     password: (0, import_fields7.password)(),
-    createdAt: (0, import_fields7.timestamp)()
+    createdAt: (0, import_fields7.timestamp)(),
+    isAdmin: (0, import_fields7.checkbox)({ defaultValue: false })
   }
 });
 
@@ -236,10 +250,10 @@ if (!sessionSecret && process.env.NODE_ENV !== "production") {
 var { withAuth } = (0, import_auth.createAuth)({
   listKey: "User",
   identityField: "email",
-  sessionData: "name createdAt",
+  sessionData: "name createdAt isAdmin",
   secretField: "password",
   initFirstItem: {
-    fields: ["name", "email", "password"]
+    fields: ["name", "email", "password", "isAdmin"]
   }
 });
 var sessionMaxAge = 60 * 60 * 24 * 30;
@@ -273,6 +287,9 @@ var keystone_default = withAuth(
     db: {
       provider: "sqlite",
       url: "file:./keystone.db"
+    },
+    server: {
+      cors: { origin: "*" }
     },
     lists: {
       Client,

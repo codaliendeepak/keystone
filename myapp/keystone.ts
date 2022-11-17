@@ -63,6 +63,9 @@ export default withAuth(
       provider: 'sqlite',
       url: 'file:./keystone.db',
     },
+    server: {
+      cors: { origin:'*'}
+    },
     lists:{
       Client,
       Faq,

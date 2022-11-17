@@ -5,7 +5,7 @@ import { allowAll } from '@keystone-6/core/access';
 export const JobRole = list({
     access: allowAll,
     fields: {
-      jobrole: text({ validation: { isRequired: true } }),                                  //  njob role
+      Role: text({ validation: { isRequired: true } }),                                  //  n job role
       employmenttype:select({                                                               //  employment type
         options: [
           { label: 'Full Time Employee (FTE)', value: 'Full Time Employee (FTE)' },
@@ -14,19 +14,17 @@ export const JobRole = list({
         defaultValue: 'Full Time Employee (FTE)',
         ui: {
           displayMode: 'segmented-control',
-          createView: { fieldMode: 'hidden' },
         },
       }),
       jobType:select({
         options: [
-            { label: 'Product', value: 'PRODUCT' },
-            { label: 'Commercial', value: 'COMMERCIAL' },
-            { label: 'Marketing', value: 'MARKETING' },
+            { label: 'Product', value: 'Product' },
+            { label: 'Commercial', value: 'Commercial' },
+            { label: 'Marketing', value: 'Marketing' },
           ],
-          defaultValue: 'PRODUCT',
+          defaultValue: 'Product',
           ui: {
             displayMode: 'select',
-            createView: { fieldMode: 'hidden' },
           },
       }),
       jobResponsilbilties: text({                                          //-- inside of details ask for seperate model of req and res

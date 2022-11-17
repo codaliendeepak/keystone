@@ -1,17 +1,20 @@
 import { list } from '@keystone-6/core';
 import { allOperations, allowAll } from '@keystone-6/core/access';
-import { text, password, relationship, timestamp } from '@keystone-6/core/fields';
+import { text, password, relationship, timestamp,checkbox } from '@keystone-6/core/fields';
+import { isNamedExportBindings } from 'typescript';
+import { isAdmin } from '../access';
 //import { permissions, rules } from '../access';
 
+
 export const User = list({
-  access: allowAll,
-//     operation: {
-//       ...allOperations(allowAll),
-//       create: () => true,
-//       // only people with the permission can delete themselves!
-//       // You can't delete yourself
-//       delete: permissions.canManageUsers,
-//     },
+  access: {
+    operation: {
+      query:allowAll,
+      create:isAdmin,
+      update:isAdmin,
+      delete:isAdmin
+  }},
+
 //     filter: {
 //       query: rules.canManageUsers,
 //       update: rules.canManageUsers,
@@ -26,7 +29,8 @@ export const User = list({
     name: text({ validation: { isRequired: true } }),
     email: text({ isIndexed: 'unique', validation: { isRequired: true } }),
     password: password(),
-    createdAt:timestamp()
+    createdAt:timestamp(),
+    isAdmin: checkbox({defaultValue:false}),
     // cart: relationship({
     //   ref: 'CartItem.user',
     //   many: true,

@@ -6,7 +6,8 @@ export const Content = list({
     access: allowAll,
     fields: {
       pagename: select( { options: [                                                 //  name of page
-        { label: "about us", value:"AboutUs"  }
+        { label: "about us", value:"AboutUs"  },
+        {label:"Buisness", value:"Buisness"}
       ]
       }), 
       image:image({storage:'localstorage'}),                                                                       

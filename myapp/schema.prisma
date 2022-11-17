@@ -49,30 +49,33 @@ model Content {
 model FormQuery {
   id               String  @id @default(cuid())
   name             String  @default("")
-  type             String? @default("CURRENT")
+  type             String? @default("Buisness")
   description      String  @default("")
   buisnessCategory String  @default("")
   email            String  @unique @default("")
   packagesCount    String  @default("")
   subject          String  @default("")
+  phone            Int     @default(0)
 }
 
 model JobRole {
   id                  String  @id @default(cuid())
-  jobrole             String  @default("")
+  Role                String  @default("")
   employmenttype      String? @default("Full Time Employee (FTE)")
-  jobType             String? @default("PRODUCT")
+  jobType             String? @default("Product")
   jobResponsilbilties String  @default("")
   jobRequirements     String  @default("")
   jobLocation         String  @default("")
 }
 
 model JobApplication {
-  id          String @id @default(cuid())
-  name        String @default("")
-  email       String @default("")
-  jobRole     String @default("")
-  coverLetter String @default("")
+  id          String  @id @default(cuid())
+  name        String  @default("")
+  email       String  @default("")
+  jobRole     String  @default("")
+  coverLetter String  @default("")
+  CV_filesize Int?
+  CV_filename String?
 
   @@index([email])
 }
@@ -83,4 +86,5 @@ model User {
   email     String    @unique @default("")
   password  String?
   createdAt DateTime?
+  isAdmin   Boolean   @default(false)
 }
