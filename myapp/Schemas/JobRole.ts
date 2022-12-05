@@ -1,5 +1,6 @@
 import { integer, select, text, relationship } from '@keystone-6/core/fields';
 import { list } from '@keystone-6/core';
+import { document } from '@keystone-6/fields-document';
 import { allowAll } from '@keystone-6/core/access';
 
 export const JobRole = list({
@@ -27,18 +28,35 @@ export const JobRole = list({
             displayMode: 'select',
           },
       }),
-      jobResponsilbilties: text({                                          //-- inside of details ask for seperate model of req and res
-        ui: {
-          displayMode: 'textarea',
-        },
+      jobResponsilbilty : document({
+        formatting: true,
+        links: true,
+        dividers: true,
+        layouts: [
+          [1, 1],
+          [1, 1, 1],
+        ],
       }),
-      jobRequirements: text({                                                       //-- inside of details ask for seperate model
-        ui: {
-          displayMode: 'textarea',
-        },
+      jobRequirement: document({
+        formatting: true,
+        links: true,
+        dividers: true,
+        layouts: [
+          [1, 1],
+          [1, 1, 1],
+        ],
       }),                                                                                                        
-      jobLocation: text({validation:{ isRequired: true }})                                    //location vary
-      
+      jobLocation: text({validation:{ isRequired: true }}),                                    //location vary
+      ShowVacancy: select({
+        options:[
+          {label:'Enable',value:'Enable'},
+          {label:'Disable',value:'Disable'}
+        ],
+        defaultValue:'Enable',
+        ui:{
+          displayMode:'radio'
+        }
+      })
     //   user: relationship({                                                   TODO--RELATIONSHIP WITH CLIENTS
     //     ref: 'User.products',
     //     hooks: {

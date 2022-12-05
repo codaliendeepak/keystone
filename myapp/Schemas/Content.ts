@@ -1,25 +1,34 @@
-import { integer, select, text, relationship, image } from '@keystone-6/core/fields';
+import { integer, select, text, relationship, image, calendarDay, timestamp } from '@keystone-6/core/fields';
+import { document } from '@keystone-6/fields-document';
 import { list } from '@keystone-6/core';
 import { allowAll } from '@keystone-6/core/access';
+import { DateTime } from '@keystone-6/core/dist/declarations/src/types/schema/graphql-ts-schema';
 
+let now: Date = new Date("2019-01-16");
 export const Content = list({
     access: allowAll,
     fields: {
       pagename: select( { options: [                                                 //  name of page
-        { label: "about us", value:"AboutUs"  },
-        {label:"Buisness", value:"Buisness"}
+        {label:"About us", value:"AboutUs"},
+        {label:"Buisness", value:"Buisness"},
+        {label:"Home",value:"Home"},
+        {label:"Careers", value:"Careers"},
+        {label:"SME", value:"SME"},
+        {label:"News And Update", value:"NewsAndUpdate"},
+        {label:"Driver", value:"Driver"}
       ]
       }), 
       image:image({storage:'localstorage'}),                                                                       
       type:select({                                                                 //  Query-Type
         options: [
           { label: 'Cards', value: 'Cards' },
-          { label: 'Image', value:'Image'}
+          { label: 'Image', value:'Image'},
+          { label: 'ClientLogo' ,value:'ClientLogo'},
+          { label: 'Banner', value:'Banner'}
         ],
         defaultValue: 'Cards',
         ui: {
-          displayMode: 'select',
-          createView: { fieldMode: 'hidden' },
+          displayMode: 'select'
         },
       }),
       description: text({                                                       //-- WHAT THEY SAY
@@ -27,17 +36,42 @@ export const Content = list({
           displayMode: 'textarea',
         },
       }),
+      content:document({
+        formatting: true,
+        links: true,
+        dividers: true,
+        
+      }),
+      link: text({}),
       heading:text({}),
       Section:select({
-        options: [
-            { label: 'section1', value: 'Section1' },
-            { label: 'section2', value:'Section2'}
+          options: [
+            { label:'Whats new', value: 'Whatsnew' },
+            { label:'Clients', value:'Clients'},
+            { label:'What they say', value:'WhatTheySay'},
+            { label:'What media say about us', value:'WhatMediaSayAboutUs'},
+            { label:'Why we are the Best', value:'BestSolution'},
+            { label:'Company Milestone',value:'CompanyMilestone'},
+            { label:'What Our Driver Says',value:'DriverSays'},
+            { label:'Advanced features',value:'AdvancedFeature'},
+            { label:'Banner', value:'banner'},
+            { label:'Find Us', value:'FindUsHere'},
+            { label:'Multicard Slider', value:'MulticardSlider'}
           ],
-          defaultValue: 'Section1',
+          defaultValue: 'SelectSection',
           ui: {
             displayMode: 'select',
-            createView: { fieldMode: 'hidden' },
           },
+      }),
+      publishedAt: timestamp({defaultValue:{kind:'now'} }),
+      DisplayEnabled:select({
+        options:[
+          {label:'Enable',value:'Enable'},
+          {label:'Disable',value:'Disable'}
+        ],
+        ui: {
+          displayMode: 'radio',
+        }
       })
     //   user: relationship({                                                   TODO--RELATIONSHIP WITH CLIENTS
     //     ref: 'User.products',

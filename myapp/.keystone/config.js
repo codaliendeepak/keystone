@@ -59,27 +59,35 @@ var Client = (0, import_core.list)({
 
 // Schemas/Content.ts
 var import_fields2 = require("@keystone-6/core/fields");
+var import_fields_document = require("@keystone-6/fields-document");
 var import_core2 = require("@keystone-6/core");
 var import_access2 = require("@keystone-6/core/access");
+var now = new Date("2019-01-16");
 var Content = (0, import_core2.list)({
   access: import_access2.allowAll,
   fields: {
     pagename: (0, import_fields2.select)({
       options: [
-        { label: "about us", value: "AboutUs" },
-        { label: "Buisness", value: "Buisness" }
+        { label: "About us", value: "AboutUs" },
+        { label: "Buisness", value: "Buisness" },
+        { label: "Home", value: "Home" },
+        { label: "Careers", value: "Careers" },
+        { label: "SME", value: "SME" },
+        { label: "News And Update", value: "NewsAndUpdate" },
+        { label: "Driver", value: "Driver" }
       ]
     }),
     image: (0, import_fields2.image)({ storage: "localstorage" }),
     type: (0, import_fields2.select)({
       options: [
         { label: "Cards", value: "Cards" },
-        { label: "Image", value: "Image" }
+        { label: "Image", value: "Image" },
+        { label: "ClientLogo", value: "ClientLogo" },
+        { label: "Banner", value: "Banner" }
       ],
       defaultValue: "Cards",
       ui: {
-        displayMode: "select",
-        createView: { fieldMode: "hidden" }
+        displayMode: "select"
       }
     }),
     description: (0, import_fields2.text)({
@@ -87,16 +95,40 @@ var Content = (0, import_core2.list)({
         displayMode: "textarea"
       }
     }),
+    content: (0, import_fields_document.document)({
+      formatting: true,
+      links: true,
+      dividers: true
+    }),
+    link: (0, import_fields2.text)({}),
     heading: (0, import_fields2.text)({}),
     Section: (0, import_fields2.select)({
       options: [
-        { label: "section1", value: "Section1" },
-        { label: "section2", value: "Section2" }
+        { label: "Whats new", value: "Whatsnew" },
+        { label: "Clients", value: "Clients" },
+        { label: "What they say", value: "WhatTheySay" },
+        { label: "What media say about us", value: "WhatMediaSayAboutUs" },
+        { label: "Why we are the Best", value: "BestSolution" },
+        { label: "Company Milestone", value: "CompanyMilestone" },
+        { label: "What Our Driver Says", value: "DriverSays" },
+        { label: "Advanced features", value: "AdvancedFeature" },
+        { label: "Banner", value: "banner" },
+        { label: "Find Us", value: "FindUsHere" },
+        { label: "Multicard Slider", value: "MulticardSlider" }
       ],
-      defaultValue: "Section1",
+      defaultValue: "SelectSection",
       ui: {
-        displayMode: "select",
-        createView: { fieldMode: "hidden" }
+        displayMode: "select"
+      }
+    }),
+    publishedAt: (0, import_fields2.timestamp)({ defaultValue: { kind: "now" } }),
+    DisplayEnabled: (0, import_fields2.select)({
+      options: [
+        { label: "Enable", value: "Enable" },
+        { label: "Disable", value: "Disable" }
+      ],
+      ui: {
+        displayMode: "radio"
       }
     })
   }
@@ -140,6 +172,7 @@ var JobApplication = (0, import_core4.list)({
 // Schemas/JobRole.ts
 var import_fields5 = require("@keystone-6/core/fields");
 var import_core5 = require("@keystone-6/core");
+var import_fields_document2 = require("@keystone-6/fields-document");
 var import_access5 = require("@keystone-6/core/access");
 var JobRole = (0, import_core5.list)({
   access: import_access5.allowAll,
@@ -166,17 +199,35 @@ var JobRole = (0, import_core5.list)({
         displayMode: "select"
       }
     }),
-    jobResponsilbilties: (0, import_fields5.text)({
-      ui: {
-        displayMode: "textarea"
-      }
+    jobResponsilbilty: (0, import_fields_document2.document)({
+      formatting: true,
+      links: true,
+      dividers: true,
+      layouts: [
+        [1, 1],
+        [1, 1, 1]
+      ]
     }),
-    jobRequirements: (0, import_fields5.text)({
-      ui: {
-        displayMode: "textarea"
-      }
+    jobRequirement: (0, import_fields_document2.document)({
+      formatting: true,
+      links: true,
+      dividers: true,
+      layouts: [
+        [1, 1],
+        [1, 1, 1]
+      ]
     }),
-    jobLocation: (0, import_fields5.text)({ validation: { isRequired: true } })
+    jobLocation: (0, import_fields5.text)({ validation: { isRequired: true } }),
+    ShowVacancy: (0, import_fields5.select)({
+      options: [
+        { label: "Enable", value: "Enable" },
+        { label: "Disable", value: "Disable" }
+      ],
+      defaultValue: "Enable",
+      ui: {
+        displayMode: "radio"
+      }
+    })
   }
 });
 
@@ -208,7 +259,7 @@ var FormQuery = (0, import_core6.list)({
     email: (0, import_fields6.text)({ validation: { isRequired: true }, isIndexed: "unique" }),
     packagesCount: (0, import_fields6.text)({ defaultValue: "" }),
     subject: (0, import_fields6.text)({}),
-    phone: (0, import_fields6.integer)({ validation: { isRequired: true }, defaultValue: 0 })
+    phone: (0, import_fields6.decimal)({ validation: { isRequired: true } })
   }
 });
 
@@ -285,8 +336,8 @@ var filestorage = {
 var keystone_default = withAuth(
   (0, import_core8.config)({
     db: {
-      provider: "sqlite",
-      url: "file:./keystone.db"
+      provider: "mysql",
+      url: "mysql://root:root@localhost:3306/keystone"
     },
     server: {
       cors: { origin: "*" }
