@@ -1,5 +1,5 @@
-import { integer, select, text, relationship, bigInt, decimal } from '@keystone-6/core/fields';
-import { list } from '@keystone-6/core';
+import { integer, select, text, relationship, bigInt, decimal, virtual } from '@keystone-6/core/fields';
+import { graphql, list } from '@keystone-6/core';
 import { allowAll } from '@keystone-6/core/access';
 // import * as fs from 'fs';
 // import express from 'express';
@@ -30,11 +30,22 @@ export const FormQuery = list({
       email: text({validation:{ isRequired: true }, isIndexed: 'unique'}),
       packagesCount: text({defaultValue:""}),                                                  //no of packages may vary
       subject:text({}),
-      phone: decimal({validation:{ isRequired: true }})                                              //to ask for normal queries we have this subject not used in buisness queries
+      phone: decimal({validation:{ isRequired: true },defaultValue:'0'}),
+      download:select({
+        options:[
+            {label:'Enable',value:'Enable'},
+            {label:'Disable',value:'Disable'}
+        ],
+        defaultValue:'Enable',
+        ui:{
+            displayMode:'segmented-control'
+          }
+      }),                                                                                     //to ask for normal queries we have this subject not used in buisness queries
     },
     // hooks: {
     //   afterOperation: ({ operation, item }) => {
     //     if (operation === 'create' || operation === 'update') {
+    //       console.log(item.download);
     //       console.log(`New Query created for user Name: ${item.name}, Email: ${item.email}`);
     //       var data={
     //         "name":item.name,
@@ -53,7 +64,7 @@ export const FormQuery = list({
     //       //   filePath.on('finish',() => {
     //       //       filePath.close();
     //       //       console.log('Download Completed'); 
-    //      })
+    //     })
     //     }
     //   }
     // }

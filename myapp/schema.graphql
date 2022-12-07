@@ -309,6 +309,7 @@ type FormQuery {
   packagesCount: String
   subject: String
   phone: Decimal
+  download: String
 }
 
 scalar Decimal
@@ -331,6 +332,7 @@ input FormQueryWhereInput {
   packagesCount: StringFilter
   subject: StringFilter
   phone: DecimalFilter
+  download: StringNullableFilter
 }
 
 input DecimalFilter {
@@ -354,6 +356,7 @@ input FormQueryOrderByInput {
   packagesCount: OrderDirection
   subject: OrderDirection
   phone: OrderDirection
+  download: OrderDirection
 }
 
 input FormQueryUpdateInput {
@@ -365,6 +368,7 @@ input FormQueryUpdateInput {
   packagesCount: String
   subject: String
   phone: Decimal
+  download: String
 }
 
 input FormQueryUpdateArgs {
@@ -381,6 +385,7 @@ input FormQueryCreateInput {
   packagesCount: String
   subject: String
   phone: Decimal
+  download: String
 }
 
 type JobRole {

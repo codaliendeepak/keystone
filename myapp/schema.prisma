@@ -59,7 +59,8 @@ model FormQuery {
   email            String  @unique @default("")
   packagesCount    String  @default("")
   subject          String  @default("")
-  phone            Decimal @mysql.Decimal(18, 4)
+  phone            Decimal @default("0") @mysql.Decimal(18, 4)
+  download         String? @default("Enable")
 }
 
 model JobRole {

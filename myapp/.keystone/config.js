@@ -259,7 +259,26 @@ var FormQuery = (0, import_core6.list)({
     email: (0, import_fields6.text)({ validation: { isRequired: true }, isIndexed: "unique" }),
     packagesCount: (0, import_fields6.text)({ defaultValue: "" }),
     subject: (0, import_fields6.text)({}),
-    phone: (0, import_fields6.decimal)({ validation: { isRequired: true } })
+    phone: (0, import_fields6.decimal)({ validation: { isRequired: true }, defaultValue: "0" }),
+    download: (0, import_fields6.select)({
+      options: [
+        { label: "Enable", value: "Enable" },
+        { label: "Disable", value: "Disable" }
+      ],
+      defaultValue: "Enable",
+      ui: {
+        displayMode: "segmented-control"
+      }
+    })
+  },
+  hooks: {
+    afterOperation: ({ operation, item }) => {
+      if (operation === "create" || operation === "update") {
+        console.log(item.download);
+        console.log(`New Query created for user Name: ${item.name}, Email: ${item.email}`);
+        c;
+      }
+    }
   }
 });
 
