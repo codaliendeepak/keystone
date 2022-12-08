@@ -5,7 +5,7 @@
 // Keystone imports the default export of this file, expecting a Keystone configuration object
 //   you can find out more at https://keystonejs.com/docs/apis/config
 
-import { config } from '@keystone-6/core';
+import { config } from './core/src';
 
 // to keep this file tidy, we define our schema in a different file
 import { Client } from './Schemas/Client'; 
@@ -15,7 +15,7 @@ import { JobApplication } from './Schemas/JobApplication';
 import { JobRole } from './Schemas/JobRole';
 import { FormQuery } from './Schemas/FormQuery';
 import { User } from './Schemas/User';
-import { StorageConfig } from '@keystone-6/core/types';
+import { StorageConfig } from './core/src/types';
 // authentication is configured separately here too, but you might move this elsewhere
 // when you write your list-level access control functions, as they typically rely on session data
 import { withAuth, session } from './auth';

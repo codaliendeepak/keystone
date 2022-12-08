@@ -1,6 +1,6 @@
-import { integer, select, text, relationship,image } from '@keystone-6/core/fields';
-import { list } from '@keystone-6/core';
-import { allowAll } from '@keystone-6/core/access';
+import { integer, select, text, relationship,image } from '../core/src/fields';
+import { list } from '../core/src';
+import { allowAll } from '../core/src/access';
 
 export const Client = list({
     access: allowAll,

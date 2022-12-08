@@ -5,8 +5,8 @@
 // If you want to learn more about how lists are configured, please read
 // - https://keystonejs.com/docs/config/lists
 
-import { list } from '@keystone-6/core';
-import { allowAll } from '@keystone-6/core/access';
+import { list } from './core/src';
+import { allowAll } from './core/src/access';
 
 // see https://keystonejs.com/docs/fields/overview for the full list of fields
 //   this is a few common fields for an example
@@ -16,10 +16,10 @@ import {
   password,
   timestamp,
   select,
-} from '@keystone-6/core/fields';
+} from './core/src/fields';
 
 // the document field is a more complicated field, so it has it's own package
-import { document } from '@keystone-6/fields-document';
+import { document } from './fields-document/src'
 // if you want to make your own fields, see https://keystonejs.com/docs/guides/custom-fields
 
 // when using Typescript, you can refine your types to a stricter subset by importing

@@ -1,6 +1,6 @@
-import { integer, select, text, relationship, bigInt, decimal, virtual } from '@keystone-6/core/fields';
-import { graphql, list } from '@keystone-6/core';
-import { allowAll } from '@keystone-6/core/access';
+import { integer, select, text, relationship, bigInt, decimal, virtual } from '../core/src/fields';
+import { graphql, list } from '../core/src';
+import { allowAll } from '../core/src/access';
 // import * as fs from 'fs';
 // import express from 'express';
 // import https from 'https';

@@ -16,10 +16,10 @@
 // read https://keystonejs.com/docs/apis/auth#authentication-api
 
 import { randomBytes } from 'crypto';
-import { createAuth } from '@keystone-6/auth';
+import { createAuth } from './auth/src';
 
 // see https://keystonejs.com/docs/apis/session for the session docs
-import { statelessSessions } from '@keystone-6/core/session';
+import { statelessSessions } from './core/src/session';
 
 // for a stateless session, a SESSION_SECRET should always be provided
 //   especially in production (statelessSessions will throw if SESSION_SECRET is undefined)

@@ -1,6 +1,6 @@
-import {  text,  } from '@keystone-6/core/fields';
-import { list } from '@keystone-6/core';
-import { allowAll } from '@keystone-6/core/access';
+import {  text,  } from '../core/src/fields';
+import { list } from '../core/src';
+import { allowAll } from '../core/src/access';
 
 export const Faq = list({
     access: allowAll,

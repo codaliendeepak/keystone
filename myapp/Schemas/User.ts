@@ -1,6 +1,6 @@
-import { list } from '@keystone-6/core';
-import { allOperations, allowAll } from '@keystone-6/core/access';
-import { text, password, relationship, timestamp,checkbox } from '@keystone-6/core/fields';
+import { list } from '../core/src';
+import { allOperations, allowAll } from '../core/src/access';
+import { text, password, relationship, timestamp,checkbox } from '../core/src/fields';
 import { isNamedExportBindings } from 'typescript';
 import { isAdmin } from '../access';
 //import { permissions, rules } from '../access';

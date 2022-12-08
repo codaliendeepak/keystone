@@ -1,7 +1,7 @@
-import { integer, select, text, relationship } from '@keystone-6/core/fields';
-import { list } from '@keystone-6/core';
-import { document } from '@keystone-6/fields-document';
-import { allowAll } from '@keystone-6/core/access';
+import { integer, select, text, relationship } from '../core/src/fields';
+import { list } from '../core/src';
+import { document } from '../fields-document/src';
+import { allowAll } from '../core/src/access';
 
 export const JobRole = list({
     access: allowAll,

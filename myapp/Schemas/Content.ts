@@ -1,8 +1,8 @@
-import { integer, select, text, relationship, image, calendarDay, timestamp } from '@keystone-6/core/fields';
-import { document } from '@keystone-6/fields-document';
-import { list } from '@keystone-6/core';
-import { allowAll } from '@keystone-6/core/access';
-import { DateTime } from '@keystone-6/core/dist/declarations/src/types/schema/graphql-ts-schema';
+import { integer, select, text, relationship, image, calendarDay, timestamp } from '../core/src/fields';
+import { document } from '../fields-document/src';
+import { list } from '../core/src';
+import { allowAll } from '../core/src/access';
+import { DateTime } from '../core/src/types/schema/graphql-ts-schema'  // /dist/declarations/src/types/schema/graphql-ts-schema';
 
 let now: Date = new Date("2019-01-16");
 export const Content = list({
