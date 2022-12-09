@@ -270,15 +270,6 @@ var FormQuery = (0, import_core6.list)({
         displayMode: "segmented-control"
       }
     })
-  },
-  hooks: {
-    afterOperation: ({ operation, item }) => {
-      if (operation === "create" || operation === "update") {
-        console.log(item.download);
-        console.log(`New Query created for user Name: ${item.name}, Email: ${item.email}`);
-        c;
-      }
-    }
   }
 });
 
