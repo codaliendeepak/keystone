@@ -6,7 +6,7 @@
 //   you can find out more at https://keystonejs.com/docs/apis/config
 
 import { config } from '@keystone-6/core';
-
+import * as fs from 'fs';
 // to keep this file tidy, we define our schema in a different file
 import { Client } from './Schemas/Client'; 
 import { Content } from './Schemas/Content';
@@ -66,7 +66,20 @@ export default withAuth(
       url: 'mysql://root:root@localhost:3306/keystone',
     },
     server: {
-      cors: { origin:'*'}
+      cors: { origin:'*'},
+      extendExpressApp: (app) => {
+        app.post("/download",async (req,res)=>{
+          console.log("request body")
+          console.log(req.body)
+          let file='./tempfile.txt'
+          try{
+            fs.writeFileSync(file,JSON.stringify(req.body))
+          }catch(e){
+            console.log(e);
+          }
+          res.download(file);
+        })
+      }
     },
     lists:{
       Client,

@@ -1,7 +1,9 @@
 "use strict";
+var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __export = (target, all) => {
   for (var name in all)
@@ -15,6 +17,10 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
 // keystone.ts
@@ -24,6 +30,7 @@ __export(keystone_exports, {
 });
 module.exports = __toCommonJS(keystone_exports);
 var import_core8 = require("@keystone-6/core");
+var fs = __toESM(require("fs"));
 
 // Schemas/Client.ts
 var import_fields = require("@keystone-6/core/fields");
@@ -350,7 +357,20 @@ var keystone_default = withAuth(
       url: "mysql://root:root@localhost:3306/keystone"
     },
     server: {
-      cors: { origin: "*" }
+      cors: { origin: "*" },
+      extendExpressApp: (app) => {
+        app.post("/download", async (req, res) => {
+          console.log("request body");
+          console.log(req.body);
+          let file2 = "./tempfile.txt";
+          try {
+            fs.writeFileSync(file2, JSON.stringify(req.body));
+          } catch (e) {
+            console.log(e);
+          }
+          res.download(file2);
+        });
+      }
     },
     lists: {
       Client,

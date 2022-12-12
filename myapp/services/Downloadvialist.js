@@ -20,12 +20,13 @@ export default async function DownloadViaList(list){
         return e;
     }
     console.log(response);
-    let uri="http://localhost:8080/download"
+    let uri="http://localhost:3000/download"
     axios.post(uri,response,{
         responseType: 'blob'
-    }).then(res=>{
-        console.log("response received",res);
-        fileDownload(res.data, `${list.gqlNames.listQueryName}`);
+    }).then(async(res)=>{
+        //console.log("response received",res.config.data);
+        let data=await ConvertJsontoCsv(res.config.data,Queryname);
+        fileDownload(data, `${list.gqlNames.listQueryName}.csv`);
         return new Blob([res.data]);
     }).catch(err=>{
         console.log(err);
@@ -53,4 +54,34 @@ export default async function DownloadViaList(list){
     //     console.log('File downloaded successfully!');
     //     })
     
+}
+
+
+async function ConvertJsontoCsv(jsonData,arrayName){
+    let JSONData=[]
+    jsonData=JSON.parse(jsonData);
+    jsonData[arrayName].forEach(ele => {
+        JSONData=JSONData.concat(ele)
+    });
+    //console.log(JSONData)
+
+    var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
+    var CSV = '';
+    var row = "";
+    for (var index in arrData[0]) {
+        row += index + ',';
+    }
+    row = row.slice(0, -1);
+    CSV += row + '\r\n';
+    for (var i = 0; i < arrData.length; i++) {
+        row=''
+        for (var index in arrData[i]) {
+            var arrValue = arrData[i][index] == null ? "" : '"' + arrData[i][index] + '"';
+            row += arrValue + ',';
+        }
+        row.slice(0, row.length - 1);
+        CSV += row + '\r\n';
+    }
+    console.log(CSV)
+    return CSV;
 }
