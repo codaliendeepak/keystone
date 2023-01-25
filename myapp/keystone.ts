@@ -8,13 +8,8 @@
 import { config } from '@keystone-6/core';
 import * as fs from 'fs';
 // to keep this file tidy, we define our schema in a different file
-import { Client } from './Schemas/Client'; 
-import { Content } from './Schemas/Content';
-import { Faq } from './Schemas/Faq';
-import { JobApplication } from './Schemas/JobApplication';
-import { JobRole } from './Schemas/JobRole';
-import { FormQuery } from './Schemas/FormQuery';
 import { User } from './Schemas/User';
+import { Booking } from './Schemas/Booking';
 import { StorageConfig } from '@keystone-6/core/types';
 // authentication is configured separately here too, but you might move this elsewhere
 // when you write your list-level access control functions, as they typically rely on session data
@@ -58,12 +53,12 @@ export default withAuth(
   config({
     db: {
       // we're using sqlite for the fastest startup experience
-      //   for more information on what database might be appropriate for you
-      //   see https://keystonejs.com/docs/guides/choosing-a-database#title
+      // for more information on what database might be appropriate for you
+      // see https://keystonejs.com/docs/guides/choosing-a-database#title
       // provider: 'sqlite',
       // url: 'file:./keystone.db',
       provider: 'mysql',
-      url: 'mysql://root:root@localhost:3306/keystone',
+      url: 'mysql://root:root!234@localhost:3306/Meetingroom',
     },
     server: {
       cors: { origin:'*'},
@@ -82,13 +77,8 @@ export default withAuth(
       }
     },
     lists:{
-      Client,
-      Faq,
-      Content,
-      FormQuery,
-      JobRole,
-      JobApplication,
-      User
+      User,
+      Booking
     },
     storage:{localstorage,filestorage},
     session,

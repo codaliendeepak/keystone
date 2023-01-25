@@ -29,281 +29,104 @@ __export(keystone_exports, {
   default: () => keystone_default
 });
 module.exports = __toCommonJS(keystone_exports);
-var import_core8 = require("@keystone-6/core");
+var import_core3 = require("@keystone-6/core");
 var fs = __toESM(require("fs"));
 
-// Schemas/Client.ts
-var import_fields = require("@keystone-6/core/fields");
+// Schemas/User.ts
 var import_core = require("@keystone-6/core");
 var import_access = require("@keystone-6/core/access");
-var Client = (0, import_core.list)({
-  access: import_access.allowAll,
-  fields: {
-    name: (0, import_fields.text)({ validation: { isRequired: true } }),
-    description: (0, import_fields.text)({
-      ui: {
-        displayMode: "textarea"
-      }
-    }),
-    photo: (0, import_fields.image)({
-      storage: "localstorage"
-    }),
-    status: (0, import_fields.select)({
-      options: [
-        { label: "Current", value: "CURRENT" },
-        { label: "Past", value: "PAST" }
-      ],
-      defaultValue: "CURRENT",
-      ui: {
-        displayMode: "segmented-control",
-        createView: { fieldMode: "hidden" }
-      }
-    }),
-    email: (0, import_fields.text)({ validation: { isRequired: true }, isIndexed: "unique" }),
-    phone: (0, import_fields.integer)({ validation: { isRequired: true } })
-  }
-});
-
-// Schemas/Content.ts
-var import_fields2 = require("@keystone-6/core/fields");
-var import_fields_document = require("@keystone-6/fields-document");
-var import_core2 = require("@keystone-6/core");
-var import_access2 = require("@keystone-6/core/access");
-var now = new Date("2019-01-16");
-var Content = (0, import_core2.list)({
-  access: import_access2.allowAll,
-  fields: {
-    pagename: (0, import_fields2.select)({
-      options: [
-        { label: "About us", value: "AboutUs" },
-        { label: "Buisness", value: "Buisness" },
-        { label: "Home", value: "Home" },
-        { label: "Careers", value: "Careers" },
-        { label: "SME", value: "SME" },
-        { label: "News And Update", value: "NewsAndUpdate" },
-        { label: "Driver", value: "Driver" }
-      ]
-    }),
-    image: (0, import_fields2.image)({ storage: "localstorage" }),
-    type: (0, import_fields2.select)({
-      options: [
-        { label: "Cards", value: "Cards" },
-        { label: "Image", value: "Image" },
-        { label: "ClientLogo", value: "ClientLogo" },
-        { label: "Banner", value: "Banner" }
-      ],
-      defaultValue: "Cards",
-      ui: {
-        displayMode: "select"
-      }
-    }),
-    description: (0, import_fields2.text)({
-      ui: {
-        displayMode: "textarea"
-      }
-    }),
-    content: (0, import_fields_document.document)({
-      formatting: true,
-      links: true,
-      dividers: true
-    }),
-    link: (0, import_fields2.text)({}),
-    heading: (0, import_fields2.text)({}),
-    Section: (0, import_fields2.select)({
-      options: [
-        { label: "Whats new", value: "Whatsnew" },
-        { label: "Clients", value: "Clients" },
-        { label: "What they say", value: "WhatTheySay" },
-        { label: "What media say about us", value: "WhatMediaSayAboutUs" },
-        { label: "Why we are the Best", value: "BestSolution" },
-        { label: "Company Milestone", value: "CompanyMilestone" },
-        { label: "What Our Driver Says", value: "DriverSays" },
-        { label: "Advanced features", value: "AdvancedFeature" },
-        { label: "Banner", value: "banner" },
-        { label: "Find Us", value: "FindUsHere" },
-        { label: "Multicard Slider", value: "MulticardSlider" }
-      ],
-      defaultValue: "SelectSection",
-      ui: {
-        displayMode: "select"
-      }
-    }),
-    publishedAt: (0, import_fields2.timestamp)({ defaultValue: { kind: "now" } }),
-    DisplayEnabled: (0, import_fields2.select)({
-      options: [
-        { label: "Enable", value: "Enable" },
-        { label: "Disable", value: "Disable" }
-      ],
-      ui: {
-        displayMode: "radio"
-      }
-    })
-  }
-});
-
-// Schemas/Faq.ts
-var import_fields3 = require("@keystone-6/core/fields");
-var import_core3 = require("@keystone-6/core");
-var import_access3 = require("@keystone-6/core/access");
-var Faq = (0, import_core3.list)({
-  access: import_access3.allowAll,
-  fields: {
-    Question: (0, import_fields3.text)({ validation: { isRequired: true } }),
-    ans: (0, import_fields3.text)({
-      ui: {
-        displayMode: "textarea"
-      }
-    })
-  }
-});
-
-// Schemas/JobApplication.ts
-var import_fields4 = require("@keystone-6/core/fields");
-var import_core4 = require("@keystone-6/core");
-var import_access4 = require("@keystone-6/core/access");
-var JobApplication = (0, import_core4.list)({
-  access: import_access4.allowAll,
-  fields: {
-    name: (0, import_fields4.text)({ validation: { isRequired: true } }),
-    email: (0, import_fields4.text)({ validation: { isRequired: true }, isIndexed: true }),
-    jobRole: (0, import_fields4.text)({ validation: { isRequired: true } }),
-    coverLetter: (0, import_fields4.text)({
-      ui: {
-        displayMode: "textarea"
-      }
-    }),
-    CV: (0, import_fields4.file)({ storage: "filestorage" })
-  }
-});
-
-// Schemas/JobRole.ts
-var import_fields5 = require("@keystone-6/core/fields");
-var import_core5 = require("@keystone-6/core");
-var import_fields_document2 = require("@keystone-6/fields-document");
-var import_access5 = require("@keystone-6/core/access");
-var JobRole = (0, import_core5.list)({
-  access: import_access5.allowAll,
-  fields: {
-    Role: (0, import_fields5.text)({ validation: { isRequired: true } }),
-    employmenttype: (0, import_fields5.select)({
-      options: [
-        { label: "Full Time Employee (FTE)", value: "Full Time Employee (FTE)" },
-        { label: "other", value: "other" }
-      ],
-      defaultValue: "Full Time Employee (FTE)",
-      ui: {
-        displayMode: "segmented-control"
-      }
-    }),
-    jobType: (0, import_fields5.select)({
-      options: [
-        { label: "Product", value: "Product" },
-        { label: "Commercial", value: "Commercial" },
-        { label: "Marketing", value: "Marketing" }
-      ],
-      defaultValue: "Product",
-      ui: {
-        displayMode: "select"
-      }
-    }),
-    jobResponsilbilty: (0, import_fields_document2.document)({
-      formatting: true,
-      links: true,
-      dividers: true,
-      layouts: [
-        [1, 1],
-        [1, 1, 1]
-      ]
-    }),
-    jobRequirement: (0, import_fields_document2.document)({
-      formatting: true,
-      links: true,
-      dividers: true,
-      layouts: [
-        [1, 1],
-        [1, 1, 1]
-      ]
-    }),
-    jobLocation: (0, import_fields5.text)({ validation: { isRequired: true } }),
-    ShowVacancy: (0, import_fields5.select)({
-      options: [
-        { label: "Enable", value: "Enable" },
-        { label: "Disable", value: "Disable" }
-      ],
-      defaultValue: "Enable",
-      ui: {
-        displayMode: "radio"
-      }
-    })
-  }
-});
-
-// Schemas/FormQuery.ts
-var import_fields6 = require("@keystone-6/core/fields");
-var import_core6 = require("@keystone-6/core");
-var import_access6 = require("@keystone-6/core/access");
-var FormQuery = (0, import_core6.list)({
-  access: import_access6.allowAll,
-  fields: {
-    name: (0, import_fields6.text)({ validation: { isRequired: true } }),
-    type: (0, import_fields6.select)({
-      options: [
-        { label: "Buisness", value: "Buisness" },
-        { label: "General", value: "General" },
-        { label: "other", value: "other" }
-      ],
-      defaultValue: "Buisness",
-      ui: {
-        displayMode: "select"
-      }
-    }),
-    description: (0, import_fields6.text)({
-      ui: {
-        displayMode: "textarea"
-      }
-    }),
-    buisnessCategory: (0, import_fields6.text)({ defaultValue: "" }),
-    email: (0, import_fields6.text)({ validation: { isRequired: true }, isIndexed: "unique" }),
-    packagesCount: (0, import_fields6.text)({ defaultValue: "" }),
-    subject: (0, import_fields6.text)({}),
-    phone: (0, import_fields6.decimal)({ validation: { isRequired: true }, defaultValue: "0" }),
-    download: (0, import_fields6.select)({
-      options: [
-        { label: "Enable", value: "Enable" },
-        { label: "Disable", value: "Disable" }
-      ],
-      defaultValue: "Enable",
-      ui: {
-        displayMode: "segmented-control"
-      }
-    })
-  }
-});
-
-// Schemas/User.ts
-var import_core7 = require("@keystone-6/core");
-var import_access7 = require("@keystone-6/core/access");
-var import_fields7 = require("@keystone-6/core/fields");
+var import_fields = require("@keystone-6/core/fields");
 
 // access.ts
 var isAdmin = ({ session: session2 }) => session2?.data.isAdmin;
 
 // Schemas/User.ts
-var User = (0, import_core7.list)({
+var User = (0, import_core.list)({
   access: {
     operation: {
-      query: import_access7.allowAll,
+      query: import_access.allowAll,
       create: isAdmin,
       update: isAdmin,
       delete: isAdmin
     }
   },
   fields: {
-    name: (0, import_fields7.text)({ validation: { isRequired: true } }),
-    email: (0, import_fields7.text)({ isIndexed: "unique", validation: { isRequired: true } }),
-    password: (0, import_fields7.password)(),
-    createdAt: (0, import_fields7.timestamp)(),
-    isAdmin: (0, import_fields7.checkbox)({ defaultValue: false })
+    name: (0, import_fields.text)({ validation: { isRequired: true } }),
+    email: (0, import_fields.text)({ isIndexed: "unique", validation: { isRequired: true } }),
+    password: (0, import_fields.password)(),
+    createdAt: (0, import_fields.timestamp)(),
+    isAdmin: (0, import_fields.checkbox)({ defaultValue: false })
+  }
+});
+
+// Schemas/Booking.ts
+var import_fields2 = require("@keystone-6/core/fields");
+var import_core2 = require("@keystone-6/core");
+var import_access3 = require("@keystone-6/core/access");
+var Booking = (0, import_core2.list)({
+  ui: {
+    listView: {
+      defaultFieldMode: ({ session: session2, context }) => "read",
+      initialColumns: ["name", "Duration", "Timing", "agenda"],
+      initialSort: { field: "name", direction: "ASC" },
+      pageSize: 50
+    }
+  },
+  access: import_access3.allowAll,
+  fields: {
+    name: (0, import_fields2.text)({ validation: { isRequired: true } }),
+    agenda: (0, import_fields2.text)({
+      ui: {
+        displayMode: "textarea"
+      }
+    }),
+    subject: (0, import_fields2.text)(),
+    Meeting_Room_Name: (0, import_fields2.select)({
+      type: "integer",
+      options: [
+        { label: "Room Number 1 (10 seater)", value: 1 },
+        { label: "Room Number 2 (4 seater Green room)", value: 2 },
+        { label: "Room Number 3 (4 seater Red room)", value: 3 }
+      ],
+      defaultValue: 1,
+      ui: {
+        displayMode: "select"
+      },
+      validation: { isRequired: true }
+    }),
+    Duration: (0, import_fields2.select)({
+      type: "integer",
+      options: [
+        { label: "15 min", value: 15 },
+        { label: "30 min", value: 30 },
+        { label: "45 min", value: 45 },
+        { label: "1 hr", value: 60 },
+        { label: "1 hr 15 min", value: 75 },
+        { label: "1 hr 30 min", value: 90 },
+        { label: "1 hr 45 min", value: 105 },
+        { label: "2 hr", value: 120 }
+      ],
+      defaultValue: 1,
+      ui: {
+        displayMode: "select"
+      },
+      validation: { isRequired: true }
+    }),
+    Timing: (0, import_fields2.timestamp)({ validation: { isRequired: true } }),
+    meeting_type: (0, import_fields2.select)({
+      options: [
+        { label: "Buisness Meeting", value: "Buisness Meeting" },
+        { label: "Design Meeting", value: "Design Meeting" },
+        { label: "Interview Meeting", value: "Interview" },
+        { label: "Other", value: "Other" }
+      ],
+      defaultValue: "other",
+      ui: {
+        displayMode: "select"
+      }
+    }),
+    email: (0, import_fields2.text)({ validation: { isRequired: true }, isIndexed: "unique" }),
+    phone: (0, import_fields2.bigInt)({ validation: { isRequired: true } })
   }
 });
 
@@ -351,10 +174,10 @@ var filestorage = {
   storagePath: "public/files"
 };
 var keystone_default = withAuth(
-  (0, import_core8.config)({
+  (0, import_core3.config)({
     db: {
       provider: "mysql",
-      url: "mysql://root:root@localhost:3306/keystone"
+      url: "mysql://root:root!234@localhost:3306/Meetingroom"
     },
     server: {
       cors: { origin: "*" },
@@ -362,24 +185,19 @@ var keystone_default = withAuth(
         app.post("/download", async (req, res) => {
           console.log("request body");
           console.log(req.body);
-          let file2 = "./tempfile.txt";
+          let file = "./tempfile.txt";
           try {
-            fs.writeFileSync(file2, JSON.stringify(req.body));
+            fs.writeFileSync(file, JSON.stringify(req.body));
           } catch (e) {
             console.log(e);
           }
-          res.download(file2);
+          res.download(file);
         });
       }
     },
     lists: {
-      Client,
-      Faq,
-      Content,
-      FormQuery,
-      JobRole,
-      JobApplication,
-      User
+      User,
+      Booking
     },
     storage: { localstorage, filestorage },
     session

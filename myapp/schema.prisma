@@ -12,80 +12,6 @@ generator client {
   output   = "node_modules/.prisma/client"
 }
 
-model Client {
-  id              String  @id @default(cuid())
-  name            String  @default("")
-  description     String  @default("")
-  photo_filesize  Int?
-  photo_extension String?
-  photo_width     Int?
-  photo_height    Int?
-  photo_id        String?
-  status          String? @default("CURRENT")
-  email           String  @unique @default("")
-  phone           Int
-}
-
-model Faq {
-  id       String @id @default(cuid())
-  Question String @default("")
-  ans      String @default("")
-}
-
-model Content {
-  id              String    @id @default(cuid())
-  pagename        String?
-  image_filesize  Int?
-  image_extension String?
-  image_width     Int?
-  image_height    Int?
-  image_id        String?
-  type            String?   @default("Cards")
-  description     String    @default("")
-  content         Json      @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  link            String    @default("")
-  heading         String    @default("")
-  Section         String?   @default("SelectSection")
-  publishedAt     DateTime? @default(now())
-  DisplayEnabled  String?
-}
-
-model FormQuery {
-  id               String  @id @default(cuid())
-  name             String  @default("")
-  type             String? @default("Buisness")
-  description      String  @default("")
-  buisnessCategory String  @default("")
-  email            String  @unique @default("")
-  packagesCount    String  @default("")
-  subject          String  @default("")
-  phone            Decimal @default("0") @mysql.Decimal(18, 4)
-  download         String? @default("Enable")
-}
-
-model JobRole {
-  id                String  @id @default(cuid())
-  Role              String  @default("")
-  employmenttype    String? @default("Full Time Employee (FTE)")
-  jobType           String? @default("Product")
-  jobResponsilbilty Json    @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  jobRequirement    Json    @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  jobLocation       String  @default("")
-  ShowVacancy       String? @default("Enable")
-}
-
-model JobApplication {
-  id          String  @id @default(cuid())
-  name        String  @default("")
-  email       String  @default("")
-  jobRole     String  @default("")
-  coverLetter String  @default("")
-  CV_filesize Int?
-  CV_filename String?
-
-  @@index([email])
-}
-
 model User {
   id        String    @id @default(cuid())
   name      String    @default("")
@@ -93,4 +19,17 @@ model User {
   password  String?
   createdAt DateTime?
   isAdmin   Boolean   @default(false)
+}
+
+model Booking {
+  id                String   @id @default(cuid())
+  name              String   @default("")
+  agenda            String   @default("")
+  subject           String   @default("")
+  Meeting_Room_Name Int      @default(1)
+  Duration          Int      @default(1)
+  Timing            DateTime
+  meeting_type      String?  @default("other")
+  email             String   @unique @default("")
+  phone             BigInt
 }
